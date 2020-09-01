@@ -18,13 +18,16 @@
  pip install AutoEnsembler
 ```
 ### How to use
-   After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. while fitting the model I passed 0.25 as validation data(by default is 0.2).
+   After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. while fitting the model I passed 0.25 as validation_split(by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data. And you can also see the weight for individual models for prediction.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
    
    
-   Here I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV as you can see in warnings.
+   Here, I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV and also you can see in warnings.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png)
 
 
+   Now, I enabled GridSearch and I passed own validation data to it and now the score will compute on validation_data.
+   
+![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%202.png)
