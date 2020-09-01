@@ -19,7 +19,11 @@
  pip install AutoEnsembler
 ```
 ### How to use
+
+#### AutoEnClassifier
+
    After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. While fitting the model I passed 0.25 as validation_split (by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data and you can also see the weight used for individual models for prediction.
+Note:- Before fitting the data, do feature scaling.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
    
@@ -40,7 +44,8 @@
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
 
 ### To Do 
-   To include xgboost and lightgbm model.
+- To include xgboost and lightgbm model.
+- To include scaling attribute.
    
 ## Bug / Feature Request
    If you find a bug, kindly open an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose) by including your search query and the expected result.
