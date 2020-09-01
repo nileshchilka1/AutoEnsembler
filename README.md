@@ -13,7 +13,7 @@
    I participated in various competitions and I learned many things from it. I wanted to share my knowledge in this amazing field of Data Science and Machine Learning. If you are beginner in this field, then try to compete this model with your model.
    
 ### When to use
-- If you want to build Robust Model with mean less time.
+   If you want to build Robust Model with mean less time.
 
 ### Installation
 
@@ -41,3 +41,9 @@
 
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
 
+### To Do 
+   To include xgboost and lightgbm model.
+   
+## Bug / Feature Request
+   If you find a bug, kindly open an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose) by including your search query and the expected result.
+   If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose). Please include sample queries and their corresponding results.
