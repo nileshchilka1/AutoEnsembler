@@ -31,3 +31,10 @@
    Now, I enabled GridSearch and I passed own validation data to it and now the score will compute on validation_data.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%202.png)
+
+   As you can see I passed 'FN' as parameter to optimize, to optimizing the 'FN' as you can see below.
+   Note:- Here 'FN' is optimized with respect to validation data and 
+   You may think how it is optimized. while ensembling, you may get multiple same accuracy models, from that it will least select least 'FN'/'FP' as you specified
+
+![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
+
