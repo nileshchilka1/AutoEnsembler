@@ -15,5 +15,5 @@
 ### Installation
 
 ```markdown
-  pip install AutoEnsembler
+ pip install AutoEnsembler
 ```
