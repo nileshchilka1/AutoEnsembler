@@ -1,7 +1,7 @@
 # AutoEnsembler
 
 ### Overview
-   This is an AutoEnsembler package, it helps you to find best ensemble model for Classification and Regression problem. As we know that every model has its own speciality, by assuming this, I built AutoEnClassifer and AutoEnRegressor on top of Logistic/Lasso, SVC/SVR, RandomForestClassifier/RandomForestRegressor, AdaBoostClassifer/AdaBoostRegressor and KNeighborsClassifier/KNeighborsRegressor.
+   This is an AutoEnsembler package, it helps you to find best ensemble model for Classification and Regression problem. As we know that every model has its own speciality, by assuming this, I built AutoEnClassifer and AutoEnRegressor on top of LogisticRegression/Lasso, SVC/SVR, RandomForestClassifier/RandomForestRegressor, AdaBoostClassifer/AdaBoostRegressor and KNeighborsClassifier/KNeighborsRegressor.
         
         
 ### Uniqueness
@@ -18,6 +18,13 @@
  pip install AutoEnsembler
 ```
 ### How to use
-   After installing, you can import as shown below. Here I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV as you can see in warnings.
+   After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. while fitting the model I passed 0.25 as validation data(by default is 0.2).
+   
+![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
+   
+   
+   Here I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV as you can see in warnings.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png)
+
+
