@@ -17,3 +17,6 @@
 ```markdown
  pip install AutoEnsembler
 ```
+### How to use
+<img src = "https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png"
+         alt = "HTML" height = "320" width = "500" />
