@@ -6,7 +6,7 @@
         
 ### Uniqueness
 - In AutoEnClassifer, you can pass a parameter that you want to optimize, i.e. 'FN' / 'FP'
-- While training, by default it will split the data into training data and validation data by 0.2(you can also specify) and it will show you the accuracy_score/r2_score(with respect to each model you selected and of AutoEnClassifer/AutoEnRegressor) on validation data
+- While training, by default it will split the data into training data and validation data by 0.2 (you can also specify) and it will show you the accuracy_score/r2_score (with respect to each model you selected and of AutoEnClassifer/AutoEnRegressor) on validation data
 - While initiating the model you can also specify which models should be used for ensembling and what type of search you want to use viz. GridSearchCV/RandomizedSearchCV
         
 ### Motivation 
@@ -21,7 +21,7 @@
  pip install AutoEnsembler
 ```
 ### How to use
-   After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. while fitting the model I passed 0.25 as validation_split(by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data. And you can also see the weight for individual models for prediction.
+   After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. While fitting the model I passed 0.25 as validation_split (by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data and you can also see the weight used for individual models for prediction.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
    
@@ -35,8 +35,8 @@
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%202.png)
 
-   As you can see I passed 'FN' as parameter to optimize, to optimizing the 'FN' as you can see below.
-   Note:- Here 'FN' is optimized with respect to validation data and 
+   As you can see I passed 'FP' as parameter to optimize, to optimizing the 'FP' as you can see below.
+   Note:- Here 'FP' is optimized with respect to validation data and on your test data it will be more or less equal.
    You may think how it is optimized. while ensembling, you may get multiple same accuracy models, from that it will least select least 'FN'/'FP' as you specified
 
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
