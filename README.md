@@ -6,7 +6,7 @@
         
 ### Uniqueness
 - In AutoEnClassifer, you can pass a parameter that you want to optimize i.e. 'FN' / 'FP'
-- While training, by defualt it will split the data into training data and validation data by 0.2(you can also specify) and it will show you the accuracy_score/r2_score(with respect to each model you selected and of AutoEnClassifer/AutoEnRegressor) on validation data
+- While training, by default it will split the data into training data and validation data by 0.2(you can also specify) and it will show you the accuracy_score/r2_score(with respect to each model you selected and of AutoEnClassifer/AutoEnRegressor) on validation data
 - while initiating the model you can also specifiy which models should be used for ensembling and what type of search you want to use viz. GridSearchCV/RandomizedSearchCV
         
 ### Motivation 
@@ -18,5 +18,6 @@
  pip install AutoEnsembler
 ```
 ### How to use
-<img src = "https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png"
-         alt = "HTML" height = "320" width = "500" />
+   After installing, you can import as shown below. Here I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV as you can see in warnings.
+   
+![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png)
