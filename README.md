@@ -23,7 +23,7 @@
 #### AutoEnClassifier
 
    After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. While fitting the model I passed 0.25 as validation_split (by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data and you can also see the weight used for individual models for prediction.
-Note:- Before fitting the data, do feature scaling.
+Note :- Before fitting the data, do feature scaling.
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
    
@@ -46,7 +46,7 @@ Note:- Before fitting the data, do feature scaling.
 #### AutoEnRegressor
 
    As you can see without doing much and with three models I reached near to 0.7 r2_score. Almost all features are similar with respect to AutoEnClassifier.
-   Remainder:- By Default LR and RF are True (you can change accordingly)
+   Remainder :- By Default LR and RF are True (you can change accordingly)
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%204.png)
 
@@ -61,6 +61,6 @@ Note:- Before fitting the data, do feature scaling.
    
 ### Want to Contribute
 If you are strong in OOPS concept/Machine Learning, please feel free to contact me.
-Email:- nileshchilka1@gmail.com
+Email :- nileshchilka1@gmail.com
 
 ### Happy Learning!!
