@@ -53,7 +53,7 @@ Note :- Before fitting the data, do feature scaling.
 
 ### To Do 
 - To include xgboost and lightgbm model.
-- To include scaling attribute.
+- To include scaling,class_weight attribute.
    
 ## Bug / Feature Request
    If you find a bug, kindly open an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose) by including your search query and the expected result.
