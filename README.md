@@ -43,10 +43,24 @@ Note:- Before fitting the data, do feature scaling.
 
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
 
+#### AutoEnRegressor
+
+   As you can see without doing much and with three models I reached near to 0.7 r2_score. Almost all features are similar with respect to AutoEnClassifier.
+   Remainder:- By Default LR and RF are True (you can change accordingly)
+   
+![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%204.png)
+
+
 ### To Do 
 - To include xgboost and lightgbm model.
 - To include scaling attribute.
    
 ## Bug / Feature Request
    If you find a bug, kindly open an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose) by including your search query and the expected result.
-   If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose). Please include sample queries and their corresponding results.
+   If you would like to request a new function, feel free to do so by opening an issue [here](https://github.com/nileshchilka1/AutoEnsembler/issues/new/choose). Please include sample queries and their corresponding results.
+   
+### Want to Contribute
+If you are strong in OOPS concept/Machine Learning, please feel free to contact me.
+Email:- nileshchilka1@gmail.com
+
+### Happy Learning!!
