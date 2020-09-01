@@ -46,7 +46,7 @@ Note :- Before fitting the data, do feature scaling.
 #### AutoEnRegressor
 
    As you can see without doing much and with three models I reached near to 0.7 r2_score. Almost all features are similar with respect to AutoEnClassifier.
-   Remainder :- By Default LR and RF are True (you can change accordingly)
+   Reminder :- By Default LR and RF are True (you can change accordingly)
    
 ![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%204.png)
 
