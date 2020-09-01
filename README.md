@@ -1,16 +1,19 @@
 # AutoEnsembler
 
 ### Overview
-   This is an AutoEnsembler package, it helps you to find best ensemble model for Classification and Regression problem. As we know that every model has its own speciality, by assuming this, I built AutoEnClassifer and AutoEnRegressor on top of LogisticRegression/Lasso, SVC/SVR, RandomForestClassifier/RandomForestRegressor, AdaBoostClassifer/AdaBoostRegressor and KNeighborsClassifier/KNeighborsRegressor.
+   This is an AutoEnsembler package, it helps you to find the best ensemble model for Classification and Regression problem. As we know that every model has its own speciality, by assuming this, I built AutoEnClassifer and AutoEnRegressor on top of LogisticRegression/Lasso, SVC/SVR, RandomForestClassifier/RandomForestRegressor, AdaBoostClassifer/AdaBoostRegressor and KNeighborsClassifier/KNeighborsRegressor.
         
         
 ### Uniqueness
-- In AutoEnClassifer, you can pass a parameter that you want to optimize i.e. 'FN' / 'FP'
+- In AutoEnClassifer, you can pass a parameter that you want to optimize, i.e. 'FN' / 'FP'
 - While training, by default it will split the data into training data and validation data by 0.2(you can also specify) and it will show you the accuracy_score/r2_score(with respect to each model you selected and of AutoEnClassifer/AutoEnRegressor) on validation data
-- while initiating the model you can also specifiy which models should be used for ensembling and what type of search you want to use viz. GridSearchCV/RandomizedSearchCV
+- While initiating the model you can also specify which models should be used for ensembling and what type of search you want to use viz. GridSearchCV/RandomizedSearchCV
         
 ### Motivation 
-   I participated in various competitions and I learned many things from it. I wanted to share my knowledge to this amazing field of Data Science and Machine Learning. If you are beginner in this field then try to compete this model with your model.
+   I participated in various competitions and I learned many things from it. I wanted to share my knowledge in this amazing field of Data Science and Machine Learning. If you are beginner in this field, then try to compete this model with your model.
+   
+### When to use
+- If you want to build Robust Model with mean less time.
 
 ### Installation
 
