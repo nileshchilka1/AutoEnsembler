@@ -535,7 +535,6 @@ class AutoEnRegressor:
         
         combinations = find_all_combinations(Total_models)
         
-        
         self.__best_score = [0] + [None] * Total_models
         count = 1
         flag_loop = 0
