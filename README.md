@@ -1,5 +1,9 @@
 # AutoEnsembler
    This is an AutoEnsembler package, it helps you to find the best ensemble model for Classification and Regression problem. As we know that every model has its own speciality, by assuming this, I built AutoEnClassifer and AutoEnRegressor on top of LogisticRegression/Lasso, SVC/SVR, RandomForestClassifier/RandomForestRegressor, AdaBoostClassifer/AdaBoostRegressor and KNeighborsClassifier/KNeighborsRegressor.
+   
+### What's new ?
+- Bugs Fixed
+- Time Optimized 
         
         
 ### Uniqueness
@@ -10,15 +14,15 @@
 ### Motivation 
    I participated in various competitions and I learned many things from it. I wanted to share my knowledge in this amazing field of Data Science and Machine Learning. If you are beginner in this field, then try to compete this model with your model.
    
-### When to use
+### When to use ?
    If you want to build Robust Model with mean less time.
 
-### Installation
+### Installation 
 
 ```markdown
  pip install AutoEnsembler
 ```
-### How to use
+### How to use ?
 
 #### AutoEnClassifier
 
