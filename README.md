@@ -23,32 +23,33 @@
 #### AutoEnClassifier
 
    After installing, you can import as shown below. By default LogisticRegression/Lasso and RandomForestClassifier/RandomForestRegressor is selected. While fitting the model I passed 0.25 as validation_split (by default is 0.2). You can also see the accuracy_score/r2_score of individual model and of AutoEn model on validation_split data and you can also see the weight used for individual models for prediction.
-Note :- Before fitting the data, do feature scaling.
+Note :- 1) Before fitting the data, do feature scaling.
+        2) (Recommended) Create your own validation data and this validation data should follow same distribution as test data for best results on test data.
    
-![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%201.png)
+![Screenshot0](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%201.png)
    
    
    Here, I specified to use all the models by passing True as a parameter with respect to each model name. By default False parameter is passed to GridSearch and it will use RandomizedSearchCV and also you can see in warnings.
    
-![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot.png)
+![Screenshot1](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot.png)
 
 
    Now, I enabled GridSearch and I passed own validation data to it and now the score will compute on validation_data.
    
-![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%202.png)
+![Screenshot2](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%202.png)
 
    As you can see I passed 'FP' as parameter to optimize, to optimizing the 'FP' as you can see below.
-   Note:- Here 'FP' is optimized with respect to validation data and on your test data it will be more or less equal.
+   Note:- Here 'FP' count is optimized with respect to validation data and on your test data it will be more or less equal, depending upon the size.
    You may think how it is optimized. while ensembling, you may get multiple same accuracy models, from that it will least select least 'FN'/'FP' as you specified
 
-![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%203.png)
+![Screenshot3](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%203.png)
 
 #### AutoEnRegressor
 
    As you can see without doing much and with three models I reached near to 0.7 r2_score. Almost all features are similar with respect to AutoEnClassifier.
-   Reminder :- By Default LR and RF are True (you can change accordingly)
+   Reminder :- (Recommended) Create your own validation data and this validation data should follow same distribution as test data for best results on test_data.
    
-![Screenshot1](https://github.com/nileshchilka1/AutoEnsembler/blob/master/Screenshot%204.png)
+![Screenshot4](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%204.png)
 
 
 ### To Do 

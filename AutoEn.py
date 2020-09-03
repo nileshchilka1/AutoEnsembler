@@ -1,10 +1,7 @@
 import numpy as np
-from sklearn.linear_model import LogisticRegression,Lasso
-from sklearn.neighbors import KNeighborsClassifier,KNeighborsRegressor
-from sklearn.svm import SVC,SVR
-from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier,RandomForestRegressor,AdaBoostRegressor
 from sklearn.model_selection import train_test_split,GridSearchCV,RandomizedSearchCV
-from sklearn.metrics import accuracy_score,r2_score,confusion_matrix
+from sklearn.metrics import accuracy_score,confusion_matrix
+from sklearn.metrics import r2_score
 import warnings 
 
 def findCombinationsUtil(arr, index, num, reducedNum,size,unique_classes): 
@@ -121,6 +118,7 @@ class AutoEnClassifier:
         
         
     def LR_model_fit(self,param_grid=None):
+            from sklearn.linear_model import LogisticRegression
             LR_model = LogisticRegression()
             if param_grid == None:
                 parameters = {'C':[0.1,0.5,1,5,10],
@@ -139,6 +137,7 @@ class AutoEnClassifier:
             print(f'LR_score : {accuracy_score(self.__LR_model.predict(self.__X_test),self.__y_test)}')
             
     def SVC_model_fit(self,param_grid=None):
+            from sklearn.svm import SVC
             SVC_model = SVC(probability=True)
             if param_grid == None:
                 parameters = [{'kernel': ['rbf','poly'],
@@ -159,6 +158,7 @@ class AutoEnClassifier:
             
             
     def RF_model_fit(self,param_grid=None):
+            from sklearn.ensemble import RandomForestClassifier
             RF_model = RandomForestClassifier()
             if param_grid == None:
                 parameters = {'n_estimators' :[10,50,100,500],
@@ -181,6 +181,7 @@ class AutoEnClassifier:
             
             
     def AB_model_fit(self,param_grid=None):
+            from sklearn.ensemble import AdaBoostClassifier
             AB_model = AdaBoostClassifier()
             if param_grid == None:
                 parameters = {'n_estimators' :[10,50,100,500],
@@ -203,6 +204,7 @@ class AutoEnClassifier:
         
     
     def KNN_model_fit(self,list_neighbors=None):
+            from sklearn.neighbors import KNeighborsClassifier
             if list_neighbors == None:
                 list_neighbors = [3,5,7,9,11,13,15]
                 n_neighbor_score_model = [None,0,None] 
@@ -227,103 +229,91 @@ class AutoEnClassifier:
         global combinations
         combinations = []
         Total_models = self.__LR + self.__SVC + self.__RF + self.__KNN + self.__AB
-        
+        optimize_count = None
         combinations = find_all_combinations(Total_models)
+        combinations = np.array(combinations)
+        all_proba = []
+        count = 1
         
         self.__best_score = [0] + [None] * Total_models
-        count = 1
-        flag_loop = 0
+                    
+        if self.__LR:
+            
+            LR_model_y_predict_proba = self.__LR_model.predict_proba(self.__X_test)
+            all_proba.append(LR_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+                        
+        if self.__SVC:
+            
+            SVC_model_y_predict_proba = self.__SVC_model.predict_proba(self.__X_test)
+            all_proba.append(SVC_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+                    
+        if self.__RF:
+               
+            RF_model_y_predict_proba = self.__RF_model.predict_proba(self.__X_test)             
+            all_proba.append(RF_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+                    
+        if self.__AB:
+            AB_model_y_predict_proba = self.__AB_model.predict_proba(self.__X_test)
+            all_proba.append(AB_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+                
+        if self.__KNN:
+            KNN_model_y_predict_proba = self.__KNN_model.predict_proba(self.__X_test)
+            all_proba.append(KNN_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+         
+        all_proba = np.array(all_proba)
+                
+        all_proba = np.sum(np.multiply(combinations.T ,np.array([all_proba]).T  ).T,axis=1)
         
-        for comb in combinations: 
-                all_proba = []
-                if self.__LR:
-                    if flag_loop == 0:
-                        LR_loc = count
-                    LR_model_y_predict_proba = self.__LR_model.predict_proba(self.__X_test)
-                    LR_model_y_predict_proba = np.multiply(LR_model_y_predict_proba,comb[LR_loc-1])
-                    all_proba.append(LR_model_y_predict_proba)
-                    if self.__best_score[LR_loc] == None:
-                        count += 1
-                        
-                if self.__SVC:
-                    if flag_loop == 0:
-                        SVC_loc = count
-                    SVC_model_y_predict_proba = self.__SVC_model.predict_proba(self.__X_test)
-                    SVC_model_y_predict_proba = np.multiply(SVC_model_y_predict_proba,comb[SVC_loc-1])
-                    all_proba.append(SVC_model_y_predict_proba)
-                    if self.__best_score[SVC_loc] == None:
-                        count += 1
-                    
-                if self.__RF:
-                    if flag_loop == 0:
-                        RF_loc = count
-                    RF_model_y_predict_proba = self.__RF_model.predict_proba(self.__X_test)
-                    RF_model_y_predict_proba = np.multiply(RF_model_y_predict_proba,comb[RF_loc-1])
-                    all_proba.append(RF_model_y_predict_proba)
-                    if self.__best_score[RF_loc] == None:
-                        count += 1
-                    
-                if self.__AB:
-                    if flag_loop == 0:
-                        AB_loc = count
-                    AB_model_y_predict_proba = self.__AB_model.predict_proba(self.__X_test)
-                    AB_model_y_predict_proba = np.multiply(AB_model_y_predict_proba,comb[AB_loc-1])
-                    all_proba.append(AB_model_y_predict_proba)
-                    if self.__best_score[AB_loc] == None:
-                        count += 1
+        for proba,comb in zip(all_proba,combinations):
                 
-                if self.__KNN:
-                    if flag_loop == 0:
-                        KNN_loc = count
-                    KNN_model_y_predict_proba = self.__KNN_model.predict_proba(self.__X_test)
-                    KNN_model_y_predict_proba = np.multiply(KNN_model_y_predict_proba,comb[KNN_loc-1])
-                    all_proba.append(KNN_model_y_predict_proba)
-                    if self.__best_score[KNN_loc] == None:
-                        count += 1
-                    
-                y_predict = np.sum(all_proba,axis=0)
-                
-                y_predict = np.argmax(y_predict,axis=1)
+            y_predict = np.argmax(proba,axis=1)
                 
                 
-                latest_score = accuracy_score(self.__y_test,y_predict)
+            latest_score = accuracy_score(self.__y_test,y_predict)
                 
                 
-                if latest_score > self.__best_score[0]:
-                    if flag_loop==0 and self.__optimize == 'FP':
-                        optimize_count = confusion_matrix(self.__y_test,y_predict)[1][0]
-                        
-                    if flag_loop==0 and self.__optimize == 'FN':
-                        optimize_count = confusion_matrix(self.__y_test,y_predict)[0][1]
+            if latest_score > self.__best_score[0]:
                         
                     self.__best_score[0] = latest_score
                     for i in range(0,len(comb)):
                         self.__best_score[i+1] = comb[i]
                         
-                elif latest_score == self.__best_score[0] and self.__optimize == 'FP':
-                    
-                    FP_count = confusion_matrix(self.__y_test,y_predict)[1][0]
-                    if FP_count < optimize_count:
-                        print(f'optimized FP from {optimize_count} to {FP_count}')
-                        optimize_count = FP_count
-                        self.__best_score[0] = latest_score
-                    for i in range(0,len(comb)):
-                        self.__best_score[i+1] = comb[i]
+                    if self.__optimize == 'FP':
+                        optimize_count = confusion_matrix(self.__y_test,y_predict)[1][0]
+                    elif self.__optimize == 'FN':
+                        optimize_count = confusion_matrix(self.__y_test,y_predict)[0][1]
                         
-                elif latest_score == self.__best_score[0] and self.__optimize == 'FN':
-                    
-                    FN_count = confusion_matrix(self.__y_test,y_predict)[0][1]
-                    if FN_count < optimize_count:
-                        print(f'optimized FN from {optimize_count} to {FN_count}')
-                        optimize_count = FN_count
-                        self.__best_score[0] = latest_score
-                    for i in range(0,len(comb)):
-                        self.__best_score[i+1] = comb[i]
-                
                         
+            elif latest_score == self.__best_score[0] and self.__optimize == 'FP':
+                FP_count = confusion_matrix(self.__y_test,y_predict)[1][0]
+                    
+                if FP_count < optimize_count:
+                    print(f'optimized FP from {optimize_count} to {FP_count}')
+                    optimize_count = FP_count
+                    self.__best_score[0] = latest_score
+                for i in range(0,len(comb)):
+                    self.__best_score[i+1] = comb[i]
+                        
+            elif latest_score == self.__best_score[0] and self.__optimize == 'FN':
+                FN_count = confusion_matrix(self.__y_test,y_predict)[0][1]
                 
-                if flag_loop == 0:
-                    flag_loop = 1
+                if FN_count < optimize_count:
+                    print(f'optimized FN from {optimize_count} to {FN_count}')
+                    optimize_count = FN_count
+                    self.__best_score[0] = latest_score
+                for i in range(0,len(comb)):
+                    self.__best_score[i+1] = comb[i]
+            
                     
         print(f'AutoEn_score : {self.__best_score[0]}')
         for i in range(len(self.__storing_model_names)):
@@ -372,6 +362,9 @@ class AutoEnClassifier:
         except AttributeError:
             print('model not fitted yet')
             return None
+        except:
+            print('something went wrong')
+            return None
         
         
         y_predict = np.argmax(y_predict,axis=1)
@@ -380,10 +373,9 @@ class AutoEnClassifier:
         return y_predict
     
 class AutoEnRegressor:
-    def __init__(self,LR=True,SVR=False,RF=True,AB=False,KNN=False,random_state=0,GridSearch=False,scoring='r2'):
+    def __init__(self,LA=True,SVR=False,RF=True,AB=False,KNN=False,random_state=0,GridSearch=False,scoring='r2'):
         
-        
-        self.__LR = LR
+        self.__LA = LA
         self.__SVR = SVR
         self.__RF = RF
         self.__AB = AB
@@ -408,9 +400,9 @@ class AutoEnRegressor:
         else:
             self.__X_train,self.__X_test,self.__y_train,self.__y_test = train_test_split(X_train,y_train,test_size=validation_split,random_state=self.__random_state)
         
-        if self.__LR:
-            AutoEnRegressor.LR_model_fit(self,param_grid=None)
-            self.__storing_model_names.append('LR_score')
+        if self.__LA:
+            AutoEnRegressor.LA_model_fit(self,param_grid=None)
+            self.__storing_model_names.append('LA_score')
         if self.__SVR:
             AutoEnRegressor.SVR_model_fit(self,param_grid=None)
             self.__storing_model_names.append('SVR_score')
@@ -427,24 +419,26 @@ class AutoEnRegressor:
         AutoEnRegressor.find_best(self)
         
         
-    def LR_model_fit(self,param_grid=None):
-            LR_model = Lasso()
+    def LA_model_fit(self,param_grid=None):
+            from sklearn.linear_model import Lasso
+            LA_model = Lasso()
             if param_grid == None:
                 parameters = {'alpha':[0.01,0.5,1,2,5]
                               }
                 if self.__GridSearch:
-                    self.__LR_model = GridSearchCV(estimator=LR_model, param_grid=parameters, cv=5,scoring=self.__scoring,n_jobs=-1)
+                    self.__LA_model = GridSearchCV(estimator=LA_model, param_grid=parameters, cv=5,scoring=self.__scoring,n_jobs=-1)
                 else:
-                    self.__LR_model = RandomizedSearchCV(estimator=LR_model, param_distributions=parameters, cv=5,scoring=self.__scoring,n_jobs=-1)
+                    self.__LA_model = RandomizedSearchCV(estimator=LA_model, param_distributions=parameters, cv=5,scoring=self.__scoring,n_jobs=-1)
             else:
                 if self.__GridSearch:
-                    self.__LR_model = GridSearchCV(estimator=LR_model, param_grid=param_grid, cv=5,scoring=self.__scoring,n_jobs=-1)
+                    self.__LA_model = GridSearchCV(estimator=LA_model, param_grid=param_grid, cv=5,scoring=self.__scoring,n_jobs=-1)
                 else:
-                    self.__LR_model = RandomizedSearchCV(estimator=LR_model, param_distributions=param_grid, cv=5,scoring=self.__scoring,n_jobs=-1)
-            self.__LR_model.fit(self.__X_train,self.__y_train)
-            print(f'LR_score : {r2_score(self.__y_test,self.__LR_model.predict(self.__X_test))}')
+                    self.__LA_model = RandomizedSearchCV(estimator=LA_model, param_distributions=param_grid, cv=5,scoring=self.__scoring,n_jobs=-1)
+            self.__LA_model.fit(self.__X_train,self.__y_train)
+            print(f'LA_score : {r2_score(self.__y_test,self.__LA_model.predict(self.__X_test))}')
             
     def SVR_model_fit(self,param_grid=None):
+            from sklearn.svm import SVR
             SVR_model = SVR()
             if param_grid == None:
                 parameters = [{'kernel': ['rbf','poly'],
@@ -465,6 +459,7 @@ class AutoEnRegressor:
             
             
     def RF_model_fit(self,param_grid=None):
+            from sklearn.ensemble import RandomForestRegressor
             RF_model = RandomForestRegressor()
             if param_grid == None:
                 parameters = {'n_estimators' :[10,50,100,500],
@@ -487,6 +482,7 @@ class AutoEnRegressor:
             
             
     def AB_model_fit(self,param_grid=None):
+            from sklearn.ensemble import AdaBoostRegressor
             AB_model = AdaBoostRegressor()
             if param_grid == None:
                 parameters = {'n_estimators' :[10,50,100,500],
@@ -509,6 +505,7 @@ class AutoEnRegressor:
         
     
     def KNN_model_fit(self,list_neighbors=None):
+            from sklearn.neighbors import KNeighborsRegressor
             if list_neighbors == None:
                 list_neighbors = [3,5,7,9,11,13,15]
                 n_neighbor_score_model = [None,0,None] 
@@ -531,74 +528,62 @@ class AutoEnRegressor:
         
         global combinations
         combinations = []
-        Total_models = self.__LR + self.__SVR + self.__RF  + self.__AB + self.__KNN
         
-        combinations = find_all_combinations(Total_models)
+        Total_models = self.__LA + self.__SVR + self.__RF + self.__KNN + self.__AB
+        
+        combinations = np.array(find_all_combinations(Total_models))
+        all_proba = []
+        count = 1
         
         self.__best_score = [0] + [None] * Total_models
-        count = 1
-        flag_loop = 0
-        
-        for comb in combinations: 
-                all_proba = []
-                if self.__LR:
-                    if flag_loop == 0:
-                        LR_loc = count
-                    LR_model_y_predict = self.__LR_model.predict(self.__X_test)
-                    LR_model_y_predict = np.multiply(LR_model_y_predict,comb[LR_loc-1])
-                    all_proba.append(LR_model_y_predict)
-                    if self.__best_score[LR_loc] == None:
-                        count += 1
+                    
+        if self.__LA:
+            
+            LA_model_y_predict_proba = self.__LA_model.predict(self.__X_test)
+            all_proba.append(LA_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
                         
-                if self.__SVR:
-                    if flag_loop == 0:
-                        SVR_loc = count
-                    SVR_model_y_predict = self.__SVR_model.predict(self.__X_test)
-                    SVR_model_y_predict = np.multiply(SVR_model_y_predict,comb[SVR_loc-1])
-                    all_proba.append(SVR_model_y_predict)
-                    if self.__best_score[SVR_loc] == None:
-                        count += 1
+        if self.__SVR:
+            
+            SVR_model_y_predict_proba = self.__SVR_model.predict(self.__X_test)
+            all_proba.append(SVR_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
                     
-                if self.__RF:
-                    if flag_loop == 0:
-                        RF_loc = count
-                    RF_model_y_predict = self.__RF_model.predict(self.__X_test)
-                    RF_model_y_predict = np.multiply(RF_model_y_predict,comb[RF_loc-1])
-                    all_proba.append(RF_model_y_predict)
-                    if self.__best_score[RF_loc] == None:
-                        count += 1
+        if self.__RF:
+               
+            RF_model_y_predict_proba = self.__RF_model.predict(self.__X_test)             
+            all_proba.append(RF_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
                     
-                if self.__AB:
-                    if flag_loop == 0:
-                        AB_loc = count
-                    AB_model_y_predict = self.__AB_model.predict(self.__X_test)
-                    AB_model_y_predict = np.multiply(AB_model_y_predict,comb[AB_loc-1])
-                    all_proba.append(AB_model_y_predict)
-                    if self.__best_score[AB_loc] == None:
-                        count += 1
+        if self.__AB:
+            AB_model_y_predict_proba = self.__AB_model.predict(self.__X_test)
+            all_proba.append(AB_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
                 
-                if self.__KNN:
-                    if flag_loop == 0:
-                        KNN_loc = count
-                    KNN_model_y_predict = self.__KNN_model.predict(self.__X_test)
-                    KNN_model_y_predict = np.multiply(KNN_model_y_predict,comb[KNN_loc-1])
-                    all_proba.append(KNN_model_y_predict)
-                    if self.__best_score[KNN_loc] == None:
-                        count += 1
-                    
-                y_predict = np.sum(all_proba,axis=0)
+        if self.__KNN:
+            KNN_model_y_predict_proba = self.__KNN_model.predict(self.__X_test)
+            all_proba.append(KNN_model_y_predict_proba)
+            if self.__best_score[count] == None:
+                count += 1
+         
+        all_proba = np.array(all_proba)
                 
-                          
-                latest_score = r2_score(self.__y_test,y_predict)
-          
-                if latest_score > self.__best_score[0]:
+        all_proba = np.sum(np.multiply(combinations.T ,np.array([all_proba]).T  ).T,axis=1)
+        
+        for y_predict,comb in zip(all_proba,combinations):
+                
+            latest_score = r2_score(self.__y_test,y_predict)
+                
+            if latest_score > self.__best_score[0]:
+                        
                     self.__best_score[0] = latest_score
                     for i in range(0,len(comb)):
                         self.__best_score[i+1] = comb[i]
-                        
-                
-                if flag_loop == 0:
-                    flag_loop = 1
+                    
                     
         print(f'AutoEn_score : {self.__best_score[0]}')
         for i in range(len(self.__storing_model_names)):
@@ -611,10 +596,10 @@ class AutoEnRegressor:
         count = 1
         try:
         
-            if self.__LR:
-                LR_model_y_predict = self.__LR_model.predict(X_test)
-                LR_model_y_predict = np.multiply(LR_model_y_predict,self.__best_score[count])
-                all_proba.append(LR_model_y_predict)
+            if self.__LA:
+                LA_model_y_predict = self.__LA_model.predict(X_test)
+                LA_model_y_predict = np.multiply(LA_model_y_predict,self.__best_score[count])
+                all_proba.append(LA_model_y_predict)
                 count+=1
                 
             if self.__SVR:
@@ -646,6 +631,10 @@ class AutoEnRegressor:
             
         except AttributeError:
             print('model not fitted yet')
+            return None
+        
+        except:
+            print('something went wrong')
             return None
 
         
