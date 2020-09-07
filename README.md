@@ -55,7 +55,7 @@ Note :- (Recommended) Create your own validation data and this validation data s
    Almost all features are similar with respect to AutoEnClassifier.
    Reminder :- (Recommended) Create your own validation data and this validation data should follow same distribution as test data for best results on test_data.
    
-![Screenshot4](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%204.png)
+![Screenshot4](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%205.png)
 
 
 ### To Do 
