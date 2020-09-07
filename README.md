@@ -31,31 +31,31 @@
    
 Note :- (Recommended) Create your own validation data and this validation data should have same distribution as test data for best results on test data.
    
-![Screenshot0](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%201.png)
+![Screenshot0](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%200.png)
    
    
    As you can see below, rest all the models are now set to True with respect to each model name. By default GridSearch is set to False and it will use RandomizedSearchCV and also you can see it in warnings.
    
-![Screenshot1](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot.png)
+![Screenshot1](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%201.png)
 
 
    Now, GridSearch is set to True and passed validation data to it and now the score will compute on validation_data.
    
-![Screenshot2](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%202.png)
+![Screenshot2](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%202.png)
 
    Below, optimize is set to 'FP', to optimizing the 'FP' i.e. False Positive
    Note:- Here 'FP' count is optimized with respect to validation data and on your test data it will be more or less equal, depending upon the size.
    You may think how it is optimized. while ensembling, one may get multiple models with same accuracy, from that it will select least 'FN'/'FP' as you specify
 
-![Screenshot3](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%203.png)
+![Screenshot3](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%203.png)
 
 #### AutoEnRegressor
 
-   As you can see with three models, AutoEnRegressor reached near to 0.7 r2_score. 
+   As you can see with three models, AutoEnRegressor reached near to 0.7 r2_score. You can also scale your data by setting scaling to True.
    Almost all features are similar with respect to AutoEnClassifier.
    Reminder :- (Recommended) Create your own validation data and this validation data should follow same distribution as test data for best results on test_data.
    
-![Screenshot4](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/Screenshot%204.png)
+![Screenshot4](https://raw.githubusercontent.com/nileshchilka1/AutoEnsembler/master/screenshots/Screenshot%204.png)
 
 
 ### To Do 
