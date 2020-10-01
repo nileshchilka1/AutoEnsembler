@@ -51,7 +51,7 @@ Note :- (Recommended) Create your own validation data and this validation data s
 
 #### AutoEnRegressor
 
-   As you can see with four models, AutoEnRegressor reached near to 0.77 r2_score. By default scaling is set to True in both AutoEnClassifier and AutoEnRegressor
+   As you can see with four models, AutoEnRegressor reached near to 0.73 r2_score. By default scaling is set to True in both AutoEnClassifier and AutoEnRegressor
    Almost all features are similar with respect to AutoEnClassifier.
    Reminder :- (Recommended) Create your own validation data and this validation data should follow same distribution as test data for best results on test_data.
    
